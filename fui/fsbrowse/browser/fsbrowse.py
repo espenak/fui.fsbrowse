@@ -57,9 +57,6 @@ class FsBrowse(FsFileBase, FsItem):
 		self.folders.sort()
 		self.files.sort()
 
-		for x in self.folders:
-			print x.basename
-
 
 	def getFolders(self):
 		return self.folders
