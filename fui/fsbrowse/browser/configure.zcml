@@ -14,7 +14,21 @@
 		for="..interfaces.IFilesystemFolder"
 		name="fsbrowse"
 		class=".fsbrowse.FsBrowse"
-		permission="zope2.Public"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="..interfaces.IFilesystemFolder"
+		name="raw"
+		class=".raw.RawFileView"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="..interfaces.IFilesystemFolder"
+		name="download"
+		class=".raw.RawFileDownload"
+		permission="zope2.View"
 		/>
 
 </configure>
