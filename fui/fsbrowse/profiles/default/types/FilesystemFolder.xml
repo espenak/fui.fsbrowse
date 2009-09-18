@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!-- This file defines a cinema folder's factory-based type information (FTI).
+	-->
+<object name="FilesystemFolder"
+	meta_type="Factory-based Type Information with dynamic views"
+	i18n:domain="fui.fsbrowse" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+	 
+	<!-- We give a title and a description, shown in the UI, as well as an icon.
+	-->
+	<property name="title" i18n:translate="">Filesystem Folder</property>
+	<property name="description"
+		i18n:translate="">A browser for filesystem folders.</property>
+
+	<property name="content_meta_type">Filestem Folder</property>
+	<property name="product">fui.fsbrowse</property>
+	<property name="factory">addFilesystemFolder</property>
+ 
+	<!-- The immediate_view is supposed to be the view that is shown immediately
+			after an object is created. Plone currently doesn't use this, however.
+			It will always show the "edit" form during content creation, and then
+			go to the view.
+	 -->
+	<property name="immediate_view">atct_edit</property>
+
+	<property name="global_allow">True</property>
+	<property name="filter_content_types">True</property>
+	<property name="allowed_content_types">
+	</property>
+ 
+	<!-- We do not allow discussion on cinema folders by default -->
+	<property name="allow_discussion">False</property>
+ 
+	<!-- The next twoproperties define the default view and available view
+			methods, i.e. those selectable in the "display" menu. This is the
+			added functionality that a "Factory-based Type Information with dynamic 
+			views" provides over a regular Factory-based Type Information".
+	-->
+	<property name="default_view">fsbrowse</property>
+	<property name="view_methods">
+		<element value="fsbrowse"/>
+		<element value="folder_summary_view"/>
+		<element value="folder_tabular_view"/>
+		<element value="folder_listing"/>
+	</property>
+ 
+	<!-- Finally, we define method aliases and actions. For most content
+			types, these are the same. The (Default) alias can reference a
+			view or page template name, but by using a "dynamic views" FTI, we
+			use the "(dynamic view)" pseudo-target to mean "the current selection".
+			The names 'edit', 'sharing' and 'view' are conventions in Plone.
+			
+			Notice how the actions (which are rendered as tabs) use standard
+			URLs which reference the method aliases. You can of course add new
+			method aliases and/or new actions (tabs) if necessary.
+	-->
+	<alias from="(Default)" to="(dynamic view)"/>
+	<alias from="edit" to="atct_edit"/>
+	<alias from="sharing" to="@@sharing"/>
+	<alias from="view" to="fsbrowse"/>
+
+	<action title="Edit" action_id="edit" category="object" condition_expr=""
+			url_expr="string:${object_url}/edit" visible="True">
+		<permission value="Modify portal content"/>
+	</action>
+	<action title="View" action_id="view" category="object" condition_expr=""
+		url_expr="string:${object_url}/" visible="True">
+		<permission value="View" />
+	</action>
+</object>

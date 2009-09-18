@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+	  xmlns:tal="http://xml.zope.org/namespaces/tal"
+	  xmlns:metal="http://xml.zope.org/namespaces/metal"
+	  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+	  lang="en"
+		metal:use-macro="here/main_template/macros/master"
+	  i18n:domain="fui.fsbrowse">
+
+	<body>
+		<div metal:fill-slot="main">
+			<h1 class="documentFirstHeading">
+				<span metal:use-macro="python:context.widget('title', mode='view')" />
+			</h1>
+
+			<div id="filetrail">
+				<span tal:repeat="i view/getFileTrail">
+					<a tal:content="i/displayname" tal:attributes="href i/url"/>
+					::
+				</span>
+				<span tal:replace="view/getBasename"/>
+			</div>
+			
+			<table class="listing" id="files" tal:condition="view/isDir">
+				<thead>
+					<tr>
+						<th>Filename</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr tal:repeat="item view/getFolders">
+						<td>
+							<a tal:attributes="href item/url" tal:content="item/displayname"/>
+						</td>
+					</tr>
+					<tr tal:repeat="item view/getFiles">
+						<td>
+							<a tal:attributes="href item/url" tal:content="item/displayname"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div id="embeddableFile" tal:condition="view/isEmbeddable" tal:content="structure view/getEmbeddable"/>
+
+		</div>
+	</body>
+</html>

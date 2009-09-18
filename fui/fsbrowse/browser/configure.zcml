@@ -1,0 +1,20 @@
+<configure
+		xmlns="http://namespaces.zope.org/zope"
+		xmlns:browser="http://namespaces.zope.org/browser"
+		i18n_domain="fui.fsbrowse">
+
+	<include package="plone.app.contentmenu" />
+
+	<browser:resource
+		name="fui.fsbrowse.style.css"
+		file="style.css"
+		/>
+
+	<browser:page
+		for="..interfaces.IFilesystemFolder"
+		name="fsbrowse"
+		class=".fsbrowse.FsBrowse"
+		permission="zope2.Public"
+		/>
+
+</configure>

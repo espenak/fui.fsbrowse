@@ -1,0 +1,25 @@
+=============================
+fui.fsbrowse functional tests
+=============================
+
+
+Setting up and log in as admin
+------------------------------
+
+	>>> browser = self.browser
+	>>> portal_url = self.portal.absolute_url()
+	>>> self.loginAdminClick()
+
+
+Make sure admin has links to add
+--------------------------------
+	>>> browser.open(portal_url)
+	>>> browser.getLink(id='filesystemfolder').url.endswith("createObject?type_name=FilesystemFolder")
+	True
+	
+
+Add FilesystemFolder as admin
+-----------------------------
+	
+	>>> browser.open(portal_url)
+	>>> browser.getLink(id='filesystemfolder').click()
