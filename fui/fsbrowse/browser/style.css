@@ -25,3 +25,19 @@
 	padding: 0;
 	border: none;
 }
+
+
+
+#dircontents td {
+	background-repeat: no-repeat;
+	padding: 3px 3px 3px 23px;
+}
+#dircontents td.typeFile {
+	background-image: url('file_icon.gif')
+}
+#dircontents td.typeFolder{
+	background-image: url('folder_icon.gif')
+}
+#dircontents td.typeImage{
+	background-image: url('image_icon.gif')
+}

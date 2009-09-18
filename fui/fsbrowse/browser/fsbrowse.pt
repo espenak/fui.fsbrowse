@@ -17,6 +17,8 @@
 			</div>
 
 
+
+
 			<div id="embeddableFile" tal:condition="view/isEmbeddable"
 				tal:content="structure view/getEmbeddable"/>
 			
@@ -28,12 +30,12 @@
 				</thead>
 				<tbody>
 					<tr tal:repeat="item view/getFolders">
-						<td>
+						<td class="typeFolder">
 							<a tal:attributes="href item/url" tal:content="item/displayname"/>
 						</td>
 					</tr>
 					<tr tal:repeat="item view/getFiles">
-						<td>
+						<td class="typeFile">
 							<a tal:attributes="href item/url" tal:content="item/displayname"/>
 						</td>
 					</tr>
