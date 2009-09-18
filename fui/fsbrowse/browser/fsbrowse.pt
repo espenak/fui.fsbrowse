@@ -11,15 +11,15 @@
 
 			<div id="filetrail">
 				<span tal:repeat="i view/getFileTrail">
-					<a tal:content="i/displayname" tal:attributes="href i/viewurl"/>
+					<a tal:content="i/getDisplayname" tal:attributes="href i/viewurl"/>
 					/
 				</span>
-				<span tal:replace="view/getBasename"/>
+				<span tal:replace="view/getDisplayname"/>
 
 			</div>
 
 			<div id="fileView" tal:condition="python: not view.isDir()">
-				<div id="fileStats" tal:condition="view/hasCurrentFsItem">
+				<div id="fileStats">
 						&#187;
 						<a tal:attributes="href view/getRawUrl">
 							View
@@ -31,8 +31,9 @@
 							Download
 						</a>
 				</div>
-				<div id="embeddableFile" tal:condition="view/isEmbeddable"
-					tal:content="structure view/getEmbeddable"/>
+
+				<pre id="embeddableFile" tal:condition="view/isEmbeddable"
+					tal:content="structure view/getUtf8Data"/>
 
 				<div id="imageFile" tal:condition="view/isImage">
 					<img tal:attributes="src view/getRawUrl"/>
@@ -48,17 +49,12 @@
 				<tbody>
 					<tr tal:repeat="item view/getFolders">
 						<td class="typeFolder">
-							<a tal:attributes="href item/viewurl" tal:content="item/displayname"/>
+							<a tal:attributes="href item/viewurl" tal:content="item/getDisplayname"/>
 						</td>
 					</tr>
 					<tr tal:repeat="item view/getFiles">
-						<td class="typeFile">
-							<a tal:attributes="href item/viewurl" tal:content="item/displayname"/>
-						</td>
-					</tr>
-					<tr tal:repeat="item view/getImages">
-						<td class="typeImage">
-							<a tal:attributes="href item/viewurl" tal:content="item/displayname"/>
+						<td tal:attributes="class item/getClasses">
+							<a tal:attributes="href item/viewurl" tal:content="item/getDisplayname"/>
 						</td>
 					</tr>
 				</tbody>

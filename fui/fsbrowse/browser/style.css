@@ -28,9 +28,6 @@
 	padding: 5px;
 }
 
-#embeddableFile {
-	margin-top: 10px;
-}
 
 #imageFile img {
 	max-width: 500px;
@@ -38,9 +35,9 @@
 	margin-top: 10px;
 }
 
-#embeddableFile pre {
+pre#embeddableFile {
+	margin: 20px 0 0 0;
 	font-size: 0.8em;
-	margin: 0;
 	padding: 0;
 	border: none;
 }
@@ -48,15 +45,25 @@
 
 
 #dircontents td {
+	background-position: 3px center;
 	background-repeat: no-repeat;
-	padding: 3px 3px 3px 23px;
-}
-#dircontents td.typeFile {
-	background-image: url('file_icon.gif')
+	padding: 6px 6px 6px 23px;
 }
 #dircontents td.typeFolder{
 	background-image: url('folder_icon.gif')
 }
+#dircontents td.typeBin{
+	background-image: url('file_icon.gif')
+}
 #dircontents td.typeImage{
 	background-image: url('image_icon.gif')
+}
+#dircontents td.typeEmbeddable{
+	background-image: url('document_icon.gif')
+}
+
+#dircontents td.selectedFile{
+	background-color: #ccc;
+	font-weight: bold;
+}
 }
