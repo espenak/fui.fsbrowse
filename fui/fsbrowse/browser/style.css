@@ -7,26 +7,35 @@
 }
 
 
-#fileStats {
-	font-size: 0.8em;
-	color: #ccc;
-	margin-top: 10px;
-}
-#fileStats div {
-	padding: 5px;
-}
 
 
 #dircontents {
 }
 
-#embeddableFile {
+
+#fileView {
 	border: 3px solid #ccc;
 	background-color: #eee;
-	padding: 5px;
 	overflow: auto;
 	width: 500px;
 	float:right;
+	padding: 5px;
+}
+
+#fileStats {
+	font-size: 1.2em;
+	color: #ccc;
+	padding: 5px;
+}
+
+#embeddableFile {
+	margin-top: 10px;
+}
+
+#imageFile img {
+	max-width: 500px;
+	border: 1px solid #000;
+	margin-top: 10px;
 }
 
 #embeddableFile pre {

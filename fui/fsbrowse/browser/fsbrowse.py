@@ -109,21 +109,20 @@ class FsBrowse(FsFileBase):
 		return self.filepath == None
 
 	def isEmbeddable(self):
-		return self.filepath != None and EMBEDDABLE_PATT.search(self.basename)
+		return not self.isDir() and EMBEDDABLE_PATT.search(self.basename)
 
 	def getEmbeddable(self):
 		return "<pre>%s</pre>" % codecs.open(self.filepath, mode="rb",
 				encoding="utf-8", errors="replace").read()
 
 	def isImage(self):
-		return self.filepath != None and IMAGES_PATT.search(self.basename)
+		return not self.isDir() and IMAGES_PATT.search(self.basename)
 
 	def getBasename(self):
 		return self.basename
 
 	def getFileTrail(self):
 		return self.fileTrail
-
 
 	def hasCurrentFsItem(self):
 		return self.currentFsItem != None

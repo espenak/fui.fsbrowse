@@ -16,10 +16,13 @@
 				</span>
 				<span tal:replace="view/getBasename"/>
 
+			</div>
+
+			<div id="fileView" tal:condition="python: not view.isDir()">
 				<div id="fileStats" tal:condition="view/hasCurrentFsItem">
 						&#187;
 						<a tal:attributes="href view/getRawUrl">
-							View raw
+							View
 						</a>
 						&nbsp;
 						&nbsp;
@@ -28,14 +31,12 @@
 							Download
 						</a>
 				</div>
-			</div>
+				<div id="embeddableFile" tal:condition="view/isEmbeddable"
+					tal:content="structure view/getEmbeddable"/>
 
-			<div id="embeddableFile" tal:condition="view/isEmbeddable"
-				tal:content="structure view/getEmbeddable"/>
-
-			<div id="imageFile" tal:condition="view/isImage">
-				<h2>hei</h2>
-				<img tal:attributes="src view/getRawUrl"/>
+				<div id="imageFile" tal:condition="view/isImage">
+					<img tal:attributes="src view/getRawUrl"/>
+				</div>
 			</div>
 
 			<table class="listing" id="dircontents">
