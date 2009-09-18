@@ -8,20 +8,36 @@
 
 	<body>
 		<div metal:fill-slot="main">
+
 			<div id="filetrail">
 				<span tal:repeat="i view/getFileTrail">
-					<a tal:content="i/displayname" tal:attributes="href i/url"/>
+					<a tal:content="i/displayname" tal:attributes="href i/viewurl"/>
 					/
 				</span>
 				<span tal:replace="view/getBasename"/>
+
+				<div id="fileStats" tal:condition="view/hasCurrentFsItem">
+						&#187;
+						<a tal:attributes="href view/getRawUrl">
+							View raw
+						</a>
+						&nbsp;
+						&nbsp;
+						&#187;
+						<a tal:attributes="href view/getDownloadUrl">
+							Download
+						</a>
+				</div>
 			</div>
-
-
-
 
 			<div id="embeddableFile" tal:condition="view/isEmbeddable"
 				tal:content="structure view/getEmbeddable"/>
-			
+
+			<div id="imageFile" tal:condition="view/isImage">
+				<h2>hei</h2>
+				<img tal:attributes="src view/getRawUrl"/>
+			</div>
+
 			<table class="listing" id="dircontents">
 				<thead>
 					<tr>
@@ -31,12 +47,17 @@
 				<tbody>
 					<tr tal:repeat="item view/getFolders">
 						<td class="typeFolder">
-							<a tal:attributes="href item/url" tal:content="item/displayname"/>
+							<a tal:attributes="href item/viewurl" tal:content="item/displayname"/>
 						</td>
 					</tr>
 					<tr tal:repeat="item view/getFiles">
 						<td class="typeFile">
-							<a tal:attributes="href item/url" tal:content="item/displayname"/>
+							<a tal:attributes="href item/viewurl" tal:content="item/displayname"/>
+						</td>
+					</tr>
+					<tr tal:repeat="item view/getImages">
+						<td class="typeImage">
+							<a tal:attributes="href item/viewurl" tal:content="item/displayname"/>
 						</td>
 					</tr>
 				</tbody>

@@ -1,9 +1,19 @@
 #filetrail {
 	font-size: 1.4em;
-	margin-bottom: 15px;
+	margin-bottom: 30px;
 }
 #filetrail a {
 	font-weight: bold;
+}
+
+
+#fileStats {
+	font-size: 0.8em;
+	color: #ccc;
+	margin-top: 10px;
+}
+#fileStats div {
+	padding: 5px;
 }
 
 

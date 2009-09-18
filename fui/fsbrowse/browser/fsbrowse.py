@@ -1,6 +1,6 @@
 from os import listdir, sep
 from os.path import isdir, join, exists, dirname
-from re import compile
+import re
 import codecs
 
 from Acquisition import aq_inner
@@ -13,8 +13,8 @@ from Products.statusmessages.interfaces import IStatusMessage
 from fsfile_base import FsFileBase
 
 
-EMBEDDABLE_PATT = compile("(\.txt|\.rst|\.md)$")
-IMAGES_PATT = compile("(\.png|\.jpg|\.jpeg)$")
+EMBEDDABLE_PATT = re.compile("(\.txt|\.rst|\.md)$", re.IGNORECASE)
+IMAGES_PATT = re.compile("(\.png|\.jpg|\.jpeg)$", re.IGNORECASE)
 SHORT_FILENAME_LEN = 18
 
 class Fs(object):
@@ -41,7 +41,9 @@ class FsItem(object):
 		else:
 			path = filename
 		self.path = path
-		self.url = "?path=" + path
+		self.viewurl = "view?path=" + path
+		self.rawurl = "raw?path=" + path
+		self.downloadurl = "download?path=" + path
 
 
 class FsBrowse(FsFileBase):
@@ -50,6 +52,7 @@ class FsBrowse(FsFileBase):
 
 	def __init__(self, *args, **kwargs):
 		FsFileBase.__init__(self, *args, **kwargs)
+		self.currentFsItem = None
 		self._getFiletrail()
 		self._parseFsFolder()
 
@@ -77,6 +80,8 @@ class FsBrowse(FsFileBase):
 
 		for filename in listdir(self.dirpath):
 			item = FsItem(prefix, filename, shortNames)
+			if filename == self.basename:
+				self.currentFsItem = item
 			if isdir(join(self.dirpath, filename)):
 				fs.folders.append(item)
 			elif IMAGES_PATT.search(filename):
@@ -104,14 +109,27 @@ class FsBrowse(FsFileBase):
 		return self.filepath == None
 
 	def isEmbeddable(self):
-		return self.filepath != None and EMBEDDABLE_PATT.search(self.filepath)
+		return self.filepath != None and EMBEDDABLE_PATT.search(self.basename)
 
 	def getEmbeddable(self):
 		return "<pre>%s</pre>" % codecs.open(self.filepath, mode="rb",
 				encoding="utf-8", errors="replace").read()
+
+	def isImage(self):
+		return self.filepath != None and IMAGES_PATT.search(self.basename)
 
 	def getBasename(self):
 		return self.basename
 
 	def getFileTrail(self):
 		return self.fileTrail
+
+
+	def hasCurrentFsItem(self):
+		return self.currentFsItem != None
+
+	def getDownloadUrl(self):
+		return self.currentFsItem.downloadurl
+
+	def getRawUrl(self):
+		return self.currentFsItem.rawurl
