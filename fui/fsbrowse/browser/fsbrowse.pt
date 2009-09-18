@@ -8,22 +8,22 @@
 
 	<body>
 		<div metal:fill-slot="main">
-			<h1 class="documentFirstHeading">
-				<span metal:use-macro="python:context.widget('title', mode='view')" />
-			</h1>
-
 			<div id="filetrail">
 				<span tal:repeat="i view/getFileTrail">
 					<a tal:content="i/displayname" tal:attributes="href i/url"/>
-					::
+					/
 				</span>
 				<span tal:replace="view/getBasename"/>
 			</div>
+
+
+			<div id="embeddableFile" tal:condition="view/isEmbeddable"
+				tal:content="structure view/getEmbeddable"/>
 			
-			<table class="listing" id="files" tal:condition="view/isDir">
+			<table class="listing" id="dircontents">
 				<thead>
 					<tr>
-						<th>Filename</th>
+						<th>&nbsp;</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -39,9 +39,6 @@
 					</tr>
 				</tbody>
 			</table>
-
-			<div id="embeddableFile" tal:condition="view/isEmbeddable" tal:content="structure view/getEmbeddable"/>
-
 		</div>
 	</body>
 </html>

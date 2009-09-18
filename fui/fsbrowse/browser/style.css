@@ -1,0 +1,27 @@
+#filetrail {
+	font-size: 1.4em;
+	margin-bottom: 15px;
+}
+#filetrail a {
+	font-weight: bold;
+}
+
+
+#dircontents {
+}
+
+#embeddableFile {
+	border: 3px solid #ccc;
+	background-color: #eee;
+	padding: 5px;
+	overflow: auto;
+	width: 500px;
+	float:right;
+}
+
+#embeddableFile pre {
+	font-size: 0.8em;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
