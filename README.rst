@@ -2,9 +2,7 @@
 README
 ===============================================================================
 
-Plone product locker registration made spesifically to suite the needs of
-*Fagutvalget ved Institutt for informatikk* (http://fui.ifi.uio.no).
-The product is available at these addresses:
+Plone product which makes files from the file system available within plone.
 
     - http://pypi.python.org/pypi/fui.fsbrowse/
     - http://github.com/espenak/fui.fsbrowse/

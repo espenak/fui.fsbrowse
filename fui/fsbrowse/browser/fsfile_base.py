@@ -74,6 +74,9 @@ class FsItem(object):
 			classes += " selectedFile"
 		return classes
 
+	def __cmp__(self, other):
+		return cmp(self.displayname, other.displayname)
+
 
 
 class FsFileBase(BrowserView, FsItem):

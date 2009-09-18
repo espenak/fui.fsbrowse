@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.1'
+version = '0.2'
 
 setup(name='fui.fsbrowse',
 	version=version,
@@ -9,10 +9,10 @@ setup(name='fui.fsbrowse',
 	long_description=open("README.rst").read(),
 	# Get more strings from http://www.python.org/pypi?%3Aaction=list_classifiers
 	classifiers=[
-	  "Framework :: Plone",
-	  "Programming Language :: Python",
-	  "Topic :: Software Development :: Libraries :: Python Modules",
-	  ],
+		"Framework :: Plone",
+		"Programming Language :: Python",
+		"Topic :: Software Development :: Libraries :: Python Modules",
+	],
 	keywords='',
 	author='Espen A. Kristiansen',
 	author_email='post@espenak.net',
@@ -23,7 +23,7 @@ setup(name='fui.fsbrowse',
 	include_package_data=True,
 	zip_safe=False,
 	install_requires=[
-	    'setuptools',
+		'setuptools',
 		# -*- Extra requirements: -*-
 	],
 	entry_points="""
