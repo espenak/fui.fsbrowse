@@ -9,40 +9,38 @@
 
 
 
-#dircontents {
-}
 
 
 #fileView {
-	border: 3px solid #ccc;
-	background-color: #eee;
-	overflow: auto;
-	width: 500px;
-	float:right;
 	padding: 5px;
+	margin-right: 180px;
 }
 
 #fileStats {
 	font-size: 1.2em;
 	color: #ccc;
-	padding: 5px;
+	padding: 0;
 }
 
 
 #imageFile img {
 	max-width: 500px;
 	border: 1px solid #000;
-	margin-top: 10px;
+	margin-top: 30px;
 }
 
 pre#embeddableFile {
-	margin: 20px 0 0 0;
+	margin: 30px 0 0 0;
 	font-size: 0.8em;
 	padding: 0;
 	border: none;
 }
 
 
+#dircontents {
+	float: right;
+	width: 150px;
+}
 
 #dircontents td {
 	background-position: 3px center;
@@ -65,5 +63,4 @@ pre#embeddableFile {
 #dircontents td.selectedFile{
 	background-color: #ccc;
 	font-weight: bold;
-}
 }

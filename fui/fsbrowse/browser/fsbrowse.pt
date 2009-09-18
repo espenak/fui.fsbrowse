@@ -18,6 +18,27 @@
 
 			</div>
 
+
+			<table class="listing" id="dircontents">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr tal:repeat="item view/getFolders">
+						<td class="typeFolder">
+							<a tal:attributes="href item/viewurl" tal:content="item/getDisplayname"/>
+						</td>
+					</tr>
+					<tr tal:repeat="item view/getFiles">
+						<td tal:attributes="class item/getClasses">
+							<a tal:attributes="href item/viewurl" tal:content="item/getDisplayname"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
 			<div id="fileView" tal:condition="python: not view.isDir()">
 				<div id="fileStats">
 						&#187;
@@ -40,25 +61,6 @@
 				</div>
 			</div>
 
-			<table class="listing" id="dircontents">
-				<thead>
-					<tr>
-						<th>&nbsp;</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr tal:repeat="item view/getFolders">
-						<td class="typeFolder">
-							<a tal:attributes="href item/viewurl" tal:content="item/getDisplayname"/>
-						</td>
-					</tr>
-					<tr tal:repeat="item view/getFiles">
-						<td tal:attributes="class item/getClasses">
-							<a tal:attributes="href item/viewurl" tal:content="item/getDisplayname"/>
-						</td>
-					</tr>
-				</tbody>
-			</table>
 		</div>
 	</body>
 </html>
