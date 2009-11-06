@@ -40,6 +40,37 @@ FilesystemFolderSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 			label = u"Path",
 			description = u"Path to a folder in the filesystem."),
 		),
+	atapi.StringField("ignorepatt",
+		required = False,
+		searchable = False,
+		storage = atapi.AnnotationStorage(),
+		widget = atapi.StringWidget(
+			label = u"Ignorepattern",
+			description = u"Python regex for files which you want to ignore." \
+					"Examples: '\..+' ignores all files starting with '.'. " \
+					"(\..+|.+~$) ignores all files starting with '.', and " \
+					"all files ending with '~'"),
+		),
+	atapi.StringField("tabreplaceFiles",
+		required = False,
+		searchable = False,
+		default = "(.+\.txt$|.+\.rst$)",
+		storage = atapi.AnnotationStorage(),
+		widget = atapi.StringWidget(
+			label = u"Tabreplace files",
+			description = u"Python regex for filenames where you want to "\
+					"replace tabs with spaces. Example: '(.+\.txt$|.+\.py$) " \
+					"to replace tabs on .txt and .py files.")
+		),
+	atapi.IntegerField("tabreplaceWidth",
+		required = False,
+		searchable = False,
+		default = 4,
+		storage = atapi.AnnotationStorage(),
+		widget = atapi.IntegerWidget(
+			label = u"Tabreplace widh",
+			description = u"Number of spaces to replace a tab-character with.")
+		),
 	))
 
 # We want to ensure that the properties we use as field properties (see

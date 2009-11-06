@@ -1,6 +1,7 @@
 from os import listdir, sep
 from os.path import isdir, join, exists, dirname
 import codecs
+import re
 
 from Acquisition import aq_inner
 from Products.Five.browser import BrowserView
@@ -12,16 +13,17 @@ from Products.statusmessages.interfaces import IStatusMessage
 from fsfile_base import FsFileBase, FsItem
 
 
-
 class FsBrowse(FsFileBase, FsItem):
 	__call__ = ViewPageTemplateFile('fsbrowse.pt')
 
 
 	def __init__(self, *args, **kwargs):
 		FsFileBase.__init__(self, *args, **kwargs)
+		self.encodingWarnings = []
 		self._getFiletrail()
 		self._parseFsFolder()
-
+		if self.isEmbeddable():
+			self.data = self.parseUtf8Data()
 
 	def _getFiletrail(self):
 		self.fileTrail = []
@@ -44,29 +46,61 @@ class FsBrowse(FsFileBase, FsItem):
 			shortNames = True
 
 		self.files = []
-		self.folders = []
+		if self.ctx.getIgnorepatt():
+			fnfilter = re.compile(self.ctx.getIgnorepatt())
+		else:
+			fnfilter = None
 		for basename in listdir(self.dirpath):
-			item = FsItem(requestedDir, basename, shortNames)
+			if fnfilter and fnfilter.match(basename):
+				continue
+			item = FsItem(requestedDir, basename, shortNames,
+					isDir=isdir(join(self.dirpath, basename)))
 			if basename == self.basename:
 				item.isSelected = True
-			if isdir(join(self.dirpath, basename)):
-				self.folders.append(item)
-			else:
-				self.files.append(item)
+			self.files.append(item)
 
-		self.folders.sort()
 		self.files.sort()
-
-
-	def getFolders(self):
-		return self.folders
 
 	def getFiles(self):
 		return self.files
 
+
+	def parseUtf8Data(self):
+		try:
+			data = codecs.open(self.filepath, mode="rb",
+					encoding="utf-8").read()
+		except ValueError, e:
+			try:
+				data = codecs.open(self.filepath, mode="rb",
+						encoding="iso8859_15").read()
+				IStatusMessage(self.request).addStatusMessage(
+						"File is not valid UTF-8, falling back on " \
+						"iso-8859-15. Conversions like this is partly " \
+						"guesswork, so the file might still not look "
+						"right.",
+						type="warning")
+			except ValueError, ex:
+				IStatusMessage(self.request).addStatusMessage(
+						"File is not valid UTF-8, falling back on " \
+						"replacement of non-ascii characters.",
+						type="warning")
+				data = codecs.open(self.filepath, mode="rb",
+						encoding="utf-8", errors="replace").read()
+
+		patt = self.ctx.getTabreplaceFiles()
+		if patt and re.match(patt, self.basename):
+			spaces = "".join([" " for x in
+				xrange(self.ctx.getTabreplaceWidth())])
+			if "\t" in data:
+				IStatusMessage(self.request).addStatusMessage(
+						"The file contains tab-characters, so it might not look " \
+						"exactly the same if you download it.",
+						type="warning")
+			data = data.replace("\t", spaces)
+		return data
+
 	def getUtf8Data(self):
-		return codecs.open(self.filepath, mode="rb",
-				encoding="utf-8", errors="replace").read()
+		return self.data
 
 	def getFileTrail(self):
 		return self.fileTrail

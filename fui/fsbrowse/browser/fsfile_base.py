@@ -63,7 +63,9 @@ class FsItem(object):
 		return self.displayname
 
 	def getClasses(self):
-		if self.isEmbeddable():
+		if self.isDir():
+			classes = "typeFolder"
+		elif self.isEmbeddable():
 			classes = "typeEmbeddable"
 		elif self.isImage():
 			classes = "typeImage"
